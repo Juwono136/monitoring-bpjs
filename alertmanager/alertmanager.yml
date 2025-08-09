@@ -1,0 +1,15 @@
+global:
+  resolve_timeout: 1m
+
+route:
+  group_by: ['alertname']
+  group_wait: 10s
+  group_interval: 30s
+  repeat_interval: 5m
+  receiver: 'n8n-webhook'
+
+receivers:
+  - name: 'n8n-webhook'
+    webhook_configs:
+      - url: 'https://n8n.csbihub.id/webhook-test/dbaa60d4-0d0f-4d58-90a0-7ba4141964d6'
+        send_resolved: true

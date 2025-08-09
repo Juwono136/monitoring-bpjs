@@ -1,0 +1,11 @@
+groups:
+  - name: bpjs-ip-monitoring
+    rules:
+      - alert: BPJS_IP_Down
+        expr: probe_success == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "BPJS IP {{ $labels.instance }} is DOWN"
+          description: "Ping to {{ $labels.instance }} failed (probe_success=0)."
