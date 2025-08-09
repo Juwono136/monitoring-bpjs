@@ -6,6 +6,25 @@ groups:
         for: 30s
         labels:
           severity: critical
+          service: bpjs-ping
         annotations:
           summary: "BPJS IP {{ $labels.instance }} is DOWN"
           description: "Ping to {{ $labels.instance }} failed (probe_success=0)."
+          ip: "{{ $labels.instance }}"
+          status: "DOWN"
+          triggered_at: "{{ $value }} at {{ $externalLabels.time }}"
+          notes: "Use Prometheus API to fetch throughput and uptime."
+
+      - alert: BPJS_IP_Up
+        expr: probe_success == 1
+        for: 30s
+        labels:
+          severity: info
+          service: bpjs-ping
+        annotations:
+          summary: "BPJS IP {{ $labels.instance }} is UP"
+          description: "Ping to {{ $labels.instance }} successful (probe_success=1)."
+          ip: "{{ $labels.instance }}"
+          status: "UP"
+          triggered_at: "{{ $value }} at {{ $externalLabels.time }}"
+          notes: "Use Prometheus API to fetch throughput and uptime."
