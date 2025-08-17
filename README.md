@@ -34,6 +34,19 @@ These metrics will be used as parameters, which will be sent to the n8n workflow
 - Grafana → Displays real-time dashboards & historical reports.
 - n8n → Automates alert delivery to Telegram messages and save the log history into Google Sheet for reporting.
 
+## 📂 Project Structure
+```bash
+monitoring-bpjs/
+├── alertmanager
+│   └── alertmanager.yml
+├── blackbox
+│   └── config.yml
+├── docker-compose.yml
+└── prometheus
+    ├── alerts.yml
+    └── prometheus.yml
+```
+
 ## ⚙️ Installation & Setup
 ### 1. Clone Repository
 ```bash
@@ -115,8 +128,6 @@ groups:
           description: "Ping to {{ $labels.instance }} failed (probe_success=0)."
           ip: "{{ $labels.instance }}"
           status: "DOWN"
-          triggered_at: "{{ $value }} at {{ $externalLabels.time }}"
-          notes: "Use Prometheus API to fetch throughput and uptime."
 
       - alert: BPJS_IP_Up
         expr: probe_success == 1
@@ -129,8 +140,6 @@ groups:
           description: "Ping to {{ $labels.instance }} successful (probe_success=1)."
           ip: "{{ $labels.instance }}"
           status: "UP"
-          triggered_at: "{{ $value }} at {{ $externalLabels.time }}"
-          notes: "Use Prometheus API to fetch throughput and uptime."
 ```
 👉 This code creates two alerts, one when an IP goes down and another when it comes back up, with labels and messages for easy tracking. Both of these alerts will be sent and read in the n8n workflow in JSON format.
 
@@ -336,6 +345,32 @@ sudo docker ps
 
 - 👉 Arrange the position of each graph component to look proportional by using drag and drop. Then click "Save dashboard".
 <img width="1916" height="868" alt="image" src="https://github.com/user-attachments/assets/ea5a8919-a1d7-4596-b502-3cd76ed35575" />
+
+## 📡 Metrics Collected
+| Metric                        | Description                             |
+| ----------------------------- | --------------------------------------- |
+| `probe_success`               | IP status → 1 = UP, 0 = DOWN            |
+| `probe_duration_seconds`      | Ping response time (latency in seconds) |
+
+## 📝 Documentation notes
+- start docker compose
+```bash
+sudo docker compose start
+```
+- stop docker compose
+```bash
+sudo docker compose stop
+```
+- remove service of docker compose
+```bash
+sudo docker compose down
+```
+- view created docker images
+```bash
+sudo docker images
+```
+
+
 
 
 
