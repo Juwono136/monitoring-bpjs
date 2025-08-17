@@ -356,7 +356,7 @@ sudo docker ps
 ## 🔄 n8n Workflow
 <img width="1158" height="545" alt="image" src="https://github.com/user-attachments/assets/f86e91ab-1bce-4d51-9e9a-347182716364" />
 
-- Webhook node: functions to retrieve the n8n-webhook endpoint (https://n8n.csbihub.id/webhook-test/dbaa60d4-0d0f-4d58-90a0-7ba4141964d6) that was previously created in alertmanager.yml. Its output is the rules from alerts.yml in JSON format:
+- Webhook node functions to retrieve the n8n-webhook endpoint (https://n8n.csbihub.id/webhook-test/dbaa60d4-0d0f-4d58-90a0-7ba4141964d6) that was previously created in `alertmanager.yml`. Its output is the rules from alerts.yml in JSON format:
 ```json
 [
   {
@@ -485,7 +485,7 @@ sudo docker ps
   }
 ]
 ```
-- Then, a condition is created where, when status = DOWN, an alert notification is sent to a Telegram message.
+- Then, a condition is created, when status = DOWN, an alert notification is sent to a Telegram message.
 <img width="1370" height="858" alt="image" src="https://github.com/user-attachments/assets/5e00d2dc-4648-4292-b207-cb0b56437e79" />
 
 - All the information obtained from the webhook node, before being inserted into Google Sheets, is cleaned up using JavaScript code as follows:
