@@ -549,7 +549,6 @@ return results.map(r => ({ json: r }));
 - Next, the result from the "fetch the data" code node will be forwarded to Google Sheets to be stored as a log report.
 <img width="847" height="245" alt="image" src="https://github.com/user-attachments/assets/6c497aa5-637e-46ad-bf1e-03d314d3d9d9" />
 
-
 ## 📝 Documentation notes
 - start docker compose
 ```bash
@@ -567,6 +566,14 @@ sudo docker compose down
 ```bash
 sudo docker images
 ```
+
+## 🚀 Future Improvements
+- Integrate Slack / Microsoft Teams / Gmail notifications.
+- Store long-term uptime data in PostgreSQL or any databases.
+- Secure monitoring endpoints with Zero Trust Network Access (ZTNA) (e.g., Cloudflare Zero Trust, Twingate, etc).
+
+## 🤝 Project Members
+- Juwono (https://github.com/Juwono136)
 
 
 
