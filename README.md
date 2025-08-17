@@ -352,6 +352,204 @@ sudo docker ps
 | `probe_success`               | IP status → 1 = UP, 0 = DOWN            |
 | `probe_duration_seconds`      | Ping response time (latency in seconds) |
 
+## 🔄 n8n Workflow
+<img width="1158" height="545" alt="image" src="https://github.com/user-attachments/assets/f86e91ab-1bce-4d51-9e9a-347182716364" />
+
+- Webhook node: functions to retrieve the n8n-webhook endpoint (https://n8n.csbihub.id/webhook-test/dbaa60d4-0d0f-4d58-90a0-7ba4141964d6) that was previously created in alertmanager.yml. Its output is the rules from alerts.yml in JSON format:
+```json
+[
+  {
+    "headers": {
+      "host": "n8n.csbihub.id",
+      "user-agent": "Alertmanager/0.28.1",
+      "content-length": "2326",
+      "accept-encoding": "gzip, br",
+      "cdn-loop": "cloudflare; loops=1",
+      "cf-connecting-ip": "180.254.65.85",
+      "cf-ipcountry": "ID",
+      "cf-ray": "970b16625ada0516-HKG",
+      "cf-visitor": "{\"scheme\":\"https\"}",
+      "cf-warp-tag-id": "118b5930-d741-4342-90e7-620c5d355661",
+      "connection": "keep-alive",
+      "content-type": "application/json",
+      "x-forwarded-for": "180.254.65.85",
+      "x-forwarded-proto": "https"
+    },
+    "params": {},
+    "query": {},
+    "body": {
+      "receiver": "n8n-webhook",
+      "status": "firing",
+      "alerts": [
+        {
+          "status": "firing",
+          "labels": {
+            "alertname": "BPJS_IP_Up",
+            "instance": "118.97.79.198",
+            "job": "blackbox",
+            "service": "bpjs-ping",
+            "severity": "info"
+          },
+          "annotations": {
+            "description": "Ping to 118.97.79.198 successful (probe_success=1).",
+            "ip": "118.97.79.198",
+            "status": "UP",
+            "summary": "BPJS IP 118.97.79.198 is UP"
+          },
+          "startsAt": "2025-08-17T18:03:08.37Z",
+          "endsAt": "0001-01-01T00:00:00Z",
+          "generatorURL": "http://31a467779b75:9090/graph?g0.expr=probe_success+%3D%3D+1&g0.tab=1",
+          "fingerprint": "98721d24261df883"
+        },
+        {
+          "status": "firing",
+          "labels": {
+            "alertname": "BPJS_IP_Up",
+            "instance": "160.25.178.35",
+            "job": "blackbox",
+            "service": "bpjs-ping",
+            "severity": "info"
+          },
+          "annotations": {
+            "description": "Ping to 160.25.178.35 successful (probe_success=1).",
+            "ip": "160.25.178.35",
+            "status": "UP",
+            "summary": "BPJS IP 160.25.178.35 is UP"
+          },
+          "startsAt": "2025-08-17T18:03:08.37Z",
+          "endsAt": "0001-01-01T00:00:00Z",
+          "generatorURL": "http://31a467779b75:9090/graph?g0.expr=probe_success+%3D%3D+1&g0.tab=1",
+          "fingerprint": "b75ff9fda0b3d445"
+        },
+        {
+          "status": "firing",
+          "labels": {
+            "alertname": "BPJS_IP_Up",
+            "instance": "160.25.179.35",
+            "job": "blackbox",
+            "service": "bpjs-ping",
+            "severity": "info"
+          },
+          "annotations": {
+            "description": "Ping to 160.25.179.35 successful (probe_success=1).",
+            "ip": "160.25.179.35",
+            "status": "UP",
+            "summary": "BPJS IP 160.25.179.35 is UP"
+          },
+          "startsAt": "2025-08-17T18:03:08.37Z",
+          "endsAt": "0001-01-01T00:00:00Z",
+          "generatorURL": "http://31a467779b75:9090/graph?g0.expr=probe_success+%3D%3D+1&g0.tab=1",
+          "fingerprint": "0fb0bfed9f95f358"
+        },
+        {
+          "status": "firing",
+          "labels": {
+            "alertname": "BPJS_IP_Up",
+            "instance": "36.67.140.135",
+            "job": "blackbox",
+            "service": "bpjs-ping",
+            "severity": "info"
+          },
+          "annotations": {
+            "description": "Ping to 36.67.140.135 successful (probe_success=1).",
+            "ip": "36.67.140.135",
+            "status": "UP",
+            "summary": "BPJS IP 36.67.140.135 is UP"
+          },
+          "startsAt": "2025-08-17T18:03:08.37Z",
+          "endsAt": "0001-01-01T00:00:00Z",
+          "generatorURL": "http://31a467779b75:9090/graph?g0.expr=probe_success+%3D%3D+1&g0.tab=1",
+          "fingerprint": "bf9cfc8682f241a3"
+        }
+      ],
+      "groupLabels": {
+        "alertname": "BPJS_IP_Up"
+      },
+      "commonLabels": {
+        "alertname": "BPJS_IP_Up",
+        "job": "blackbox",
+        "service": "bpjs-ping",
+        "severity": "info"
+      },
+      "commonAnnotations": {
+        "status": "UP"
+      },
+      "externalURL": "http://87a93f754f43:9093",
+      "version": "4",
+      "groupKey": "{}:{alertname=\"BPJS_IP_Up\"}",
+      "truncatedAlerts": 0
+    },
+    "webhookUrl": "https://n8n.csbihub.id/webhook/dbaa60d4-0d0f-4d58-90a0-7ba4141964d6",
+    "executionMode": "production"
+  }
+]
+```
+- Then, a condition is created where, when status = DOWN, an alert notification is sent to a Telegram message.
+<img width="1370" height="858" alt="image" src="https://github.com/user-attachments/assets/5e00d2dc-4648-4292-b207-cb0b56437e79" />
+
+- All the information obtained from the webhook node, before being inserted into Google Sheets, is cleaned up using JavaScript code as follows:
+```javascript
+const alerts = items[0].json.body.alerts;
+
+const status = alerts[0].annotations.status;
+
+let results = [];
+
+if (status === "UP") {
+  results = alerts
+    .filter(alert => alert.annotations.status === "UP")
+    .map(alert => ({
+      ip: alert.annotations.ip,
+      status: alert.annotations.status,
+      summary: alert.annotations.summary,
+      timeUp: alert.startsAt,
+    }));
+} else if (status === "DOWN") {
+  const alert = alerts[0];
+  results = [{
+    ip: alert.annotations.ip,
+    status: alert.annotations.status,
+    summary: alert.annotations.summary,
+    timeDown: alert.startsAt,
+  }];
+}
+
+return results.map(r => ({ json: r }));
+
+```
+👉 This code will produce a new JSON data format that is easier to read:
+```json
+[
+  {
+    "ip": "118.97.79.198",
+    "status": "UP",
+    "summary": "BPJS IP 118.97.79.198 is UP",
+    "timeUp": "2025-08-17T18:03:08.37Z"
+  },
+  {
+    "ip": "160.25.178.35",
+    "status": "UP",
+    "summary": "BPJS IP 160.25.178.35 is UP",
+    "timeUp": "2025-08-17T18:03:08.37Z"
+  },
+  {
+    "ip": "160.25.179.35",
+    "status": "UP",
+    "summary": "BPJS IP 160.25.179.35 is UP",
+    "timeUp": "2025-08-17T18:03:08.37Z"
+  },
+  {
+    "ip": "36.67.140.135",
+    "status": "UP",
+    "summary": "BPJS IP 36.67.140.135 is UP",
+    "timeUp": "2025-08-17T18:03:08.37Z"
+  }
+]
+```
+- Next, the result from the "fetch the data" code node will be forwarded to Google Sheets to be stored as a log report.
+<img width="847" height="245" alt="image" src="https://github.com/user-attachments/assets/6c497aa5-637e-46ad-bf1e-03d314d3d9d9" />
+
+
 ## 📝 Documentation notes
 - start docker compose
 ```bash
