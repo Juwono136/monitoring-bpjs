@@ -12,8 +12,6 @@ groups:
           description: "Ping to {{ $labels.instance }} failed (probe_success=0)."
           ip: "{{ $labels.instance }}"
           status: "DOWN"
-          triggered_at: "{{ $value }} at {{ $externalLabels.time }}"
-          notes: "Use Prometheus API to fetch throughput and uptime."
 
       - alert: BPJS_IP_Up
         expr: probe_success == 1
@@ -26,5 +24,3 @@ groups:
           description: "Ping to {{ $labels.instance }} successful (probe_success=1)."
           ip: "{{ $labels.instance }}"
           status: "UP"
-          triggered_at: "{{ $value }} at {{ $externalLabels.time }}"
-          notes: "Use Prometheus API to fetch throughput and uptime."

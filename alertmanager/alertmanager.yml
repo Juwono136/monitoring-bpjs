@@ -11,5 +11,5 @@ route:
 receivers:
   - name: 'n8n-webhook'
     webhook_configs:
-      - url: 'https://n8n.csbihub.id/webhook-test/dbaa60d4-0d0f-4d58-90a0-7ba4141964d6'
+      - url: 'https://n8n.csbihub.id/webhook/dbaa60d4-0d0f-4d58-90a0-7ba4141964d6'
         send_resolved: true
