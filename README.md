@@ -263,11 +263,79 @@ networks:
 ```bash
 sudo docker compose up -d
 ```
-- if the service is successfully created, there will be active containers for Prometheus, Blackbox, Alertmanager, and Grafana. Run the following command:
+- if the service is successfully created, there will be active containers for Prometheus, Blackbox Exporter, Alertmanager, and Grafana. Run the following command:
 ```bash
 sudo docker ps
 ```
 <img width="1892" height="202" alt="image" src="https://github.com/user-attachments/assets/c5645410-3fa8-4317-a429-af08f286a87b" />
+
+👉 Now, check in your browser (for example: Google Chrome), then type in the following localhost links to verify whether the services are running successfully or not:
+- Prometheus: http://localhost:9090
+<img width="1907" height="950" alt="image" src="https://github.com/user-attachments/assets/31de6db1-df8d-4704-aed8-fe6b3e0ba6c2" />
+
+- Alertmanager: http://localhost:9093
+<img width="1916" height="967" alt="image" src="https://github.com/user-attachments/assets/ed4e2b96-2448-4ed4-bbd0-956b805793b7" />
+
+- Blackbox exporter: http://localhost:9115
+<img width="1912" height="967" alt="image" src="https://github.com/user-attachments/assets/d077fa4d-b249-459a-b958-d3b398699b97" />
+
+- Grafana: http://localhost:3005
+<img width="1917" height="863" alt="image" src="https://github.com/user-attachments/assets/7ae08e8a-5943-4375-a123-81d57388b91b" />
+
+### 8. Create a grafana dashboard for monitoring
+- In the browser, type `http://localhost:3005`, log in with the default username and password (username: admin, password: admin), then change the default password to a new password of your choice.
+- In the Grafana dashboard sidebar menu, select Add new connection → search for Prometheus → Add new data source.
+- Set up Prometheus:
+  - Name: prometheus
+  - Under Connection → Prometheus server URL: `http://prometheus:9090`
+  - Then click the **Save & Test** button.
+- Next, in the Grafana sidebar menu, select Dashboard → Create new dashboard → Add visualization.
+- In the Select data source section, choose **Prometheus**.
+- We will create 4 graph visualizations for the following parameters/metrics:
+  - Response Ping Time
+  - Throughput / Rate Ping
+  - Ping UP/DOWN
+  - Uptime Percentage (Last 5 Minutes)
+
+#### => Response Ping Time
+- In the Queries tab, under the metrics browser, type: `probe_duration_seconds`, then click "Run queries", and the graph will appear in the visualization component.
+- On the right sidebar, there are several settings to edit the graph. Change them with the following information:
+  - Visualization: Time Series
+  - Panel options → Title: Response Ping Time
+  - Standard options → Unit: seconds (s)
+- Then, click the "Save dashboard" button → give the dashboard a name (e.g., BPJS Monitoring) → click Save.
+- Click the "Back to dashboard" button to create or add another visualization.
+<img width="1917" height="867" alt="image" src="https://github.com/user-attachments/assets/53845dfa-2b51-4dd6-ae26-49b1b031f4e3" />
+
+#### => Throughput / Rate Ping
+- In the Queries tab, under the metrics browser, type: `rate(probe_duration_seconds[1m])`, then click "Run queries".
+- On the right sidebar, there are several settings to edit the graph. Change them with the following information:
+  - Visualization: Time Series
+  - Panel options → Title: Throughput / Rate Ping
+  - Standard options → Unit: requests/min (rpm)
+- Then, click the "Save dashboard" button → click Save.
+<img width="1915" height="862" alt="image" src="https://github.com/user-attachments/assets/08edab0c-9689-4c58-b218-8886addcfba5" />
+
+#### => Ping UP/DOWN
+- In the Queries tab, under the metrics browser, type: `probe_success`, then click "Run queries".
+- On the right sidebar, there are several settings to edit the graph. Change them with the following information:
+  - Visualization: Stat
+  - Panel options → Title: Ping UP / DOWN
+  - Stat styles → Change Layout orientation to "Horizontal"
+- Then, click the "Save dashboard" button → click Save.
+<img width="1915" height="861" alt="image" src="https://github.com/user-attachments/assets/8fb6bf3c-1f7a-4b84-9299-cde89f3b6e52" />
+
+#### => Uptime Percentage (Last 5 Minutes)
+- In the Queries tab, under the metrics browser, type: `avg_over_time(probe_success[5m]) * 100`, then click "Run queries".
+- On the right sidebar, there are several settings to edit the graph. Change them with the following information:
+  - Visualization: Gauge
+  - Panel options → Title: Uptime Percentage (Last 5 Minutes)
+  - Standard options → Unit: Percent (0-100)
+- Then, click the "Save dashboard" button → click Save.
+<img width="1918" height="868" alt="image" src="https://github.com/user-attachments/assets/6a19cc31-8dde-4a1f-86ec-45a6e8921419" />
+
+- 👉 Arrange the position of each graph component to look proportional by using drag and drop. Then click "Save dashboard".
+<img width="1916" height="868" alt="image" src="https://github.com/user-attachments/assets/ea5a8919-a1d7-4596-b502-3cd76ed35575" />
 
 
 
