@@ -1,4 +1,5 @@
 # IP Network Monitoring of BPJS for Reporting + Alert Notification
+![monitoring-bpjs](https://github.com/user-attachments/assets/f09f6fef-da47-4527-9937-411aeb0c5557)
 
 This project is designed to monitor IP networks from [BPJS API](https://new-api.bpjs-kesehatan.go.id/) to detect anomalies, connectivity issues, and other network-related events in real time. It continuously monitors 4 BPJS IP addresses and 1 dummy IP (for error simulation and testing) to ensure network reliability, availability, and performance. The monitoring system is capable of visualizing metrics, sending alerts, and automating incident response through various notification channels.
 
@@ -574,9 +575,3 @@ sudo docker images
 
 ## 🤝 Project Members
 - Juwono (https://github.com/Juwono136)
-
-
-
-
-
-
