@@ -14,7 +14,8 @@ The monitoring process is based on 4 key metrics:
 These metrics will be used as parameters, which will be sent to the n8n workflow (as the automation system) to send alert notifications if an error (DOWN) occurs on the IP network, delivered as a chat message via Telegram. In addition, it will automatically generate a report for each IP network in the form of a log history and record it into Google Sheets.
 
 ## 📑 Table of Contents
-- [🧑‍💻 Tech Stack](https://github.com/Juwono136/monitoring-bpjs#-tech-stack) 
+- [🧑‍💻 Tech Stack](#-tech-stack)
+- [🖥️ Requirements](#-requirements)
 
 ## 🧑‍💻 Tech Stack:
 - ➡️ Docker Compose: Container orchestration
