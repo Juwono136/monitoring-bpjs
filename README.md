@@ -112,7 +112,7 @@ scrape_configs:
   - relabel_configs: rewrites labels so Prometheus sends probe requests correctly to the Blackbox Exporter at `blackbox-exporter:9115`.
 
 ### 3. Define Alerting Rules
-=> inside the prometheus folder, create a file named `alrts.yml`
+=> inside the prometheus folder, create a file named `alerts.yml`
 - `alerts.yml` file:
 ```bash
 groups:
