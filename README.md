@@ -5,7 +5,7 @@ This project is designed to monitor IP networks from [BPJS API](https://new-api.
 
 The monitoring process is based on 4 key metrics:
 - **Ping Response Time**: Measures latency between the BPJS IP host server and the monitoring system.
-- **Ping Throughput**: Evaluates the amount of data successfully transmitted over the BPJS IP network.
+- **Average of Latency**: Average delay of ICMP (ping) packets sent and received.
 - **Ping Status (UP/DOWN)**: Indicates network availability.
   - 1 = UP (reachable)
   - 0 = DOWN (unreachable / firing alert) 
@@ -317,14 +317,13 @@ sudo docker ps
 - Click the "Back to dashboard" button to create or add another visualization.
 <img width="1917" height="867" alt="image" src="https://github.com/user-attachments/assets/53845dfa-2b51-4dd6-ae26-49b1b031f4e3" />
 
-#### => Throughput / Rate Ping
-- In the Queries tab, under the metrics browser, type: `rate(probe_duration_seconds[1m])`, then click "Run queries".
+#### => Average of Latency
+- In the Queries tab, under the metrics browser, type: `avg_over_time(probe_duration_seconds[1m])`, then click "Run queries".
 - On the right sidebar, there are several settings to edit the graph. Change them with the following information:
   - Visualization: Time Series
-  - Panel options → Title: Throughput / Rate Ping
-  - Standard options → Unit: requests/min (rpm)
+  - Panel options → Title: Average of Latency
 - Then, click the "Save dashboard" button → click Save.
-<img width="1915" height="862" alt="image" src="https://github.com/user-attachments/assets/08edab0c-9689-4c58-b218-8886addcfba5" />
+<img width="1906" height="865" alt="image" src="https://github.com/user-attachments/assets/d6ecb2a8-5020-420d-bb13-cbb05aefff64" />
 
 #### => Ping UP/DOWN
 - In the Queries tab, under the metrics browser, type: `probe_success`, then click "Run queries".
@@ -345,7 +344,7 @@ sudo docker ps
 <img width="1918" height="868" alt="image" src="https://github.com/user-attachments/assets/6a19cc31-8dde-4a1f-86ec-45a6e8921419" />
 
 - 👉 Arrange the position of each graph component to look proportional by using drag and drop. Then click "Save dashboard".
-<img width="1916" height="868" alt="image" src="https://github.com/user-attachments/assets/ea5a8919-a1d7-4596-b502-3cd76ed35575" />
+<img width="1898" height="866" alt="image" src="https://github.com/user-attachments/assets/db3cc6b2-4c7f-454a-bcb8-0e0fe3079e99" />
 
 ## 📡 Metrics Collected
 | Metric                        | Description                             |
