@@ -570,7 +570,7 @@ sudo docker images
 ## 🚀 Future Improvements
 - Integrate Slack / Microsoft Teams / Gmail notifications.
 - Store long-term uptime data in PostgreSQL or any databases.
-- Add other log information such as throughput, uptime, and so on to Google Sheets for a more complete report.
+- Add other log information such as throughput (using node-exporter), uptime, and so on to Google Sheets for a more complete report.
 - Secure monitoring endpoints with Zero Trust Network Access (ZTNA) (e.g., Cloudflare Zero Trust, Twingate, etc).
 
 ## 🤝 Project Members
